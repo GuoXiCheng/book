@@ -1,6 +1,5 @@
 <template>
   <div class="book-shelf">
-    <h1>欢迎来到我的书架</h1>
     <div class="shelf">
       <div v-for="(book, index) in books" :key="index" class="book">
         <img :src="book.cover" :alt="book.title" />
