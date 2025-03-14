@@ -2,20 +2,33 @@
   <div class="book-shelf">
     <div class="shelf">
       <div v-for="(book, index) in books" :key="index" class="book">
-        <img :src="book.cover" :alt="book.title" />
-        <p>{{ book.title }}</p>
+        <p>{{ book.text }}</p>
+        <div v-for="(item, itemId) in book.items" :key="itemId" @click="handleClick(item)" style="cursor: pointer">
+          <img :src="item.image" :alt="item.title" />
+          <p>{{ item.title }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-const books = [
-  { title: "书籍 1", cover: "/images/107eae4c90418237.jpg" },
-  { title: "书籍 2", cover: "/images/107eae4c90418237.jpg" },
-  { title: "书籍 3", cover: "/images/107eae4c90418237.jpg" },
-  // 你可以继续添加更多书籍
-];
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
+const books = ref({});
+
+const props = defineProps({
+  books: Object,
+});
+
+onMounted(() => {
+  books.value = props.books as any;
+  console.log(books.value);
+});
+
+function handleClick(item) {
+  window.location.href = item.link;
+}
 </script>
 
 <style scoped>
