@@ -1,11 +1,12 @@
 <template>
-  <div class="book-shelf">
-    <div class="shelf">
-      <div v-for="(book, index) in books" :key="index" class="book">
-        <p>{{ book.text }}</p>
-        <div v-for="(item, itemId) in book.items" :key="itemId" @click="handleClick(item)" style="cursor: pointer">
+  <div class="shelf">
+    <div v-for="(book, index) in books" :key="index">
+      <div class="shelf-year">{{ book.text }} 年</div>
+      <div class="books" v-for="(item, itemId) in book.items" @click="handleClick(item)">
+        <div class="book">
           <img :src="item.image" :alt="item.title" />
-          <p>{{ item.title }}</p>
+          <div class="title">{{ item.text }}</div>
+          <div class="author">{{ item.author }}</div>
         </div>
       </div>
     </div>
@@ -23,7 +24,7 @@ const props = defineProps({
 
 onMounted(() => {
   books.value = props.books as any;
-  console.log(books.value);
+  // console.log(books.value);
 });
 
 function handleClick(item) {
@@ -32,31 +33,37 @@ function handleClick(item) {
 </script>
 
 <style scoped>
-.book-shelf {
-  text-align: center;
-  padding: 20px;
-}
-
 .shelf {
+  margin: 30px;
+}
+.shelf-year {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 3px solid #b9bec7;
+  padding-bottom: 4px;
+  width: 100%;
+}
+.books {
   display: flex;
-  justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  margin-top: 20px;
+  cursor: pointer;
 }
-
 .book {
-  width: 120px;
+  width: 150px;
+}
+.title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text);
   text-align: center;
 }
 
-.book img {
-  width: 100px;
-  height: 150px;
-  object-fit: cover;
-}
-
-.book p {
-  font-size: 14px;
-  margin-top: 10px;
+.author {
+  font-size: 12px;
+  color: var(--subtext);
+  text-align: center;
 }
 </style>
