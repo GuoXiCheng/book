@@ -5,6 +5,7 @@ import getSidebar from "./sidebar";
 export default defineConfig({
   title: "我的书架",
   description: "A VitePress Site",
+  head: [["link", { rel: "icon", type: "image/x-icon", href: "/images/favicon.ico" }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -14,6 +15,6 @@ export default defineConfig({
     aside: false,
     sidebar: getSidebar(),
 
-    socialLinks: [{ icon: "github", link: "https://github.com/vuejs/vitepress" }],
+    socialLinks: [{ icon: "github", link: "https://github.com/GuoXiCheng/book" }],
   },
 });
