@@ -2,8 +2,8 @@
   <div class="shelf">
     <div v-for="(book, index) in books" :key="index">
       <div class="shelf-year">{{ book.text }} 年</div>
-      <div class="books" v-for="(item, itemId) in book.items" @click="handleClick(item)">
-        <div class="book">
+      <div class="books">
+        <div class="book" v-for="(item, itemId) in book.items" @click="handleClick(item)">
           <img :src="item.image" :alt="item.title" />
           <div class="title">{{ item.text }}</div>
           <div class="author">{{ item.author }}</div>
@@ -46,13 +46,21 @@ function handleClick(item) {
 }
 .books {
   display: flex;
-  gap: 20px;
+  flex-direction: row;
   flex-wrap: wrap;
+  gap: 20px;
   margin-top: 20px;
   cursor: pointer;
 }
 .book {
+  width: 160px;
+}
+.book img {
   width: 150px;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
 }
 .title {
   font-size: 14px;
