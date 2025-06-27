@@ -29,6 +29,11 @@ export default function getSidebar() {
         item["link"] = `/${file}/${name.replace(/\.md$/, "")}`;
         item["author"] = data.author;
 
+        // 格式化日期为 YYYY-MM-DD
+        const date = new Date(data.date);
+        const formattedDate = date.toISOString().split("T")[0];
+        item["date"] = formattedDate;
+
         const image = images.find((image) => image.startsWith(name.replace(/\.md$/, "")));
         if (image) {
           item["image"] = `/images/${file}/${image}`;

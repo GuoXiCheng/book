@@ -7,6 +7,7 @@
           <img :src="item.image" :alt="item.title" />
           <div class="title">{{ item.text }}</div>
           <div class="author">{{ item.author }}</div>
+          <div class="author">{{ item.date }}</div>
         </div>
       </div>
     </div>
