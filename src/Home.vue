@@ -1,7 +1,8 @@
 <template>
   <div class="shelf">
+    <div class="summary" v-if="totalCount > 0">累计读完 {{ totalCount }} 本书</div>
     <div v-for="(book, index) in books" :key="index">
-      <div class="shelf-year">{{ book.text }} 年</div>
+      <div class="shelf-year">{{ book.text }} 年（{{ book.items?.length || 0 }} 本）</div>
       <div class="books">
         <div class="book" v-for="(item, itemId) in book.items" @click="handleClick(item)">
           <img :src="item.image" :alt="item.title" />
@@ -17,15 +18,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-const books = ref({});
+const books = ref<any[]>([]);
+const totalCount = ref(0);
 
 const props = defineProps({
   books: Object,
 });
 
 onMounted(() => {
-  books.value = props.books as any;
-  // console.log(books.value);
+  books.value = (props.books as any) || [];
+  totalCount.value = Array.isArray(books.value)
+    ? books.value.reduce((sum, b) => sum + (Array.isArray(b.items) ? b.items.length : 0), 0)
+    : 0;
 });
 
 function handleClick(item) {
@@ -36,6 +40,11 @@ function handleClick(item) {
 <style scoped>
 .shelf {
   margin: 30px;
+}
+.summary {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 .shelf-year {
   font-size: 20px;
