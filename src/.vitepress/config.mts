@@ -1,20 +1,31 @@
 import { defineConfig } from "vitepress";
 import getSidebar from "./sidebar";
+import { withMermaid } from "vitepress-plugin-mermaid";
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
-  title: "我的书架",
-  description: "A VitePress Site",
-  head: [["link", { rel: "icon", type: "image/x-icon", href: "/images/favicon.ico" }]],
-  themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: "Home", link: "/" },
-      { text: "Book", link: "/2022/human-weakness" },
-    ],
-    aside: false,
-    sidebar: getSidebar(),
+export default withMermaid(
+  defineConfig({
+    title: "我的书架",
+    description: "A VitePress Site",
 
-    socialLinks: [{ icon: "github", link: "https://github.com/GuoXiCheng/book" }],
-  },
-});
+    vite: {
+      optimizeDeps: {
+        include: [
+          "mermaid", // 预构建 Mermaid
+          "fastdom", // 预构建 CommonJS 依赖
+          "fastdom/extensions/fastdom-promised.js", // 预构建其扩展模块
+        ],
+      },
+    },
+
+    themeConfig: {
+      nav: [
+        { text: "Home", link: "/" },
+        { text: "Book", link: "/2022/human-weakness" },
+      ],
+      aside: false,
+      sidebar: getSidebar(),
+      socialLinks: [{ icon: "github", link: "https://github.com/GuoXiCheng/book" }],
+    },
+  }),
+);
